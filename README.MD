@@ -1,5 +1,10 @@
 # Cardápio Digital - Aplicação Mobille
 
+<h1 align="center">
+    <img src="./public/tela1.png" width="300"/>
+    <img src="./public/tela2.png" width="300"/>
+</h1>
+
 ## 💻 Requisitos
 
 Antes de iniciar, você deve ter o Node.js e o NPM instalados em sua máquina.
