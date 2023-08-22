@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Importe o ícone apropriado
+import { View, ScrollView } from 'react-native';
 import { FoodData } from '../interface/FoodData';
 import Card from './Card';
-import { useFoodData } from './useFoodData';
+import { FoodService } from '../services/FoodService';
+import { ApiException } from '../services/Api/ApiException';
 
 const ScrollWithFloatingButton = () => {
-    const data:FoodData[] = useFoodData();
+    const [data, setData] = useState<FoodData[]>([]);
+    useEffect(() => {
+        FoodService.getAll()
+        .then((result) => {
+            if (result instanceof ApiException) {
+                console.warn(result.message)
+            } else {
+                setData(result);
+            }
+        });
+    },[]);
     return (
         <View>
             <ScrollView

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { FoodData } from "../interface/FoodData";
-import axios, { AxiosPromise } from "axios";
+import { FoodService } from "../services/FoodService";
+import { ApiException } from "../services/Api/ApiException";
 
 interface ModalProps {
     closeModal(): void
@@ -15,10 +16,16 @@ export function CreateModal({ closeModal }: ModalProps) {
     const [image, setImage] = useState("");
     const [isModalVisible, setModalVisible] = useState(false);
 
-    const postData = async (data: FoodData): AxiosPromise<any> => {
-        const response = axios.post('http://192.168.20.17:8080/food', data);
-        return response;
-    }
+    const postData = (data: FoodData) => {
+        FoodService.create(data)
+        .then((result) => {
+            if (result instanceof ApiException) {
+                console.warn(result.message)
+            } else {
+                console.log('isSave: ' + true);
+            }
+        });
+    };
 
     const fecharModal = () => {
         setModalVisible(!isModalVisible);
