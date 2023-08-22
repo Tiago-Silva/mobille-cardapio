@@ -5,9 +5,13 @@ import Card from './Card';
 import { FoodService } from '../services/FoodService';
 import { ApiException } from '../services/Api/ApiException';
 
-const ScrollWithFloatingButton = () => {
+interface ScrollWithFloatingButtonProps {
+    isGetAll: boolean
+}
+
+const ScrollWithFloatingButton = ({isGetAll}: ScrollWithFloatingButtonProps) => {
     const [data, setData] = useState<FoodData[]>([]);
-    useEffect(() => {
+    if(isGetAll) {
         FoodService.getAll()
         .then((result) => {
             if (result instanceof ApiException) {
@@ -16,7 +20,9 @@ const ScrollWithFloatingButton = () => {
                 setData(result);
             }
         });
-    },[]);
+        // useEffect(() => {
+        // },[]);
+    }
     return (
         <View>
             <ScrollView
