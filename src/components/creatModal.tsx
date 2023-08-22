@@ -5,10 +5,11 @@ import { FoodService } from "../services/FoodService";
 import { ApiException } from "../services/Api/ApiException";
 
 interface ModalProps {
-    closeModal(): void
+    closeModal(): void,
+    salvaDados(): void
 }
 
-export function CreateModal({ closeModal }: ModalProps) {
+export function CreateModal({ closeModal, salvaDados }: ModalProps) {
 
     const [title, setTitle] = useState("");
     let price:number = 0;
@@ -41,7 +42,7 @@ export function CreateModal({ closeModal }: ModalProps) {
         }
         postData(foodData);
         setModalVisible(false);
-        closeModal();
+        salvaDados();
     }
     
     useEffect(() => {

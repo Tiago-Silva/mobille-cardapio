@@ -12,19 +12,29 @@ import { CreateModal } from './components/creatModal';
 
 function App(): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isGetAll, setGetAll] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(prev => !prev);
   };
 
+  useEffect(() => {
+    setGetAll(true);
+  },[]);
+
+  const isSave = () => {
+    setGetAll(true);
+    handleOpenModal();
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <ScrollWithFloatingButton />
+      <ScrollWithFloatingButton isGetAll={isGetAll}/>
       <TouchableOpacity style={styles.appFloatingButton} onPress={handleOpenModal}>
         <Text style={styles.appTextButton}>Novo</Text>
       </TouchableOpacity>
-      {isModalOpen && <CreateModal closeModal={handleOpenModal}/>}
+      {isModalOpen && <CreateModal closeModal={handleOpenModal} salvaDados={isSave}/>}
     </SafeAreaView>
   );
 }
